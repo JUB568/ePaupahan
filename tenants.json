@@ -1,0 +1,23 @@
+[
+    {
+        "id": 2,
+        "name": "Maria Avellana",
+        "unit": "Unit 3B",
+        "contact": "09234567890",
+        "status": "Active"
+    },
+    {
+        "id": 3,
+        "name": "Pedro Reyes",
+        "unit": "Unit 1C",
+        "contact": "09345678901",
+        "status": "Inactive"
+    },
+    {
+        "id": 4,
+        "name": "maricar",
+        "unit": "1B",
+        "contact": "082108312",
+        "status": "Active"
+    }
+]

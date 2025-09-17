@@ -1,0 +1,756 @@
+                            /* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f6fcdf;
+    color: #1a1a19;
+    line-height: 1.6;
+}
+
+body, html {
+    overflow: hidden;
+}
+
+                                /* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+                                /* Login Page Styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #31511e 0%, #1a1a19 100%);
+}
+
+.login-card {
+    background: #f6fcdf;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h1 {
+    color: #31511e;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.black {                            /*Icon*/
+    width: 100px;
+}
+
+.login-toggle {
+    display: flex;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #31511e;
+}
+
+.login-toggle label {
+    flex: 1;
+    padding: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #1a1a19;
+}
+
+.login-toggle input[type="radio"] {
+    display: none;
+}
+
+.login-toggle input[type="radio"]:checked + label {
+    background: #31511e;
+    color: #f6fcdf;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #1a1a19;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #859f3d;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    background-color: #f6fcdf;
+    color: #1a1a19;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #859f3d;
+}
+
+.btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: #31511e;
+    color: #f6fcdf;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background: #1a1a19;
+}
+
+.vessel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 335px;
+  margin: auto;
+  font-family: 'Inter', sans-serif;
+}
+.vessel input, .vessel button {
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  border: 1px solid #31511e;
+}
+.vessel input:focus {
+  border-color: #859f3d;
+  box-shadow: 0 0 4px rgba(133,159,61,0.4);
+}
+.vessel button {
+  background: #31511e;
+  color: #f6fcdf;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.vessel button:hover {
+  background: #1a1a19;
+}
+
+                                    /* Dashboard Layout */
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {                          /*sidebar for main navigation*/
+    width: 250px;
+    background: #1a1a19;
+    color: #f6fcdf;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.sidebar-image {
+  width: 95%; 
+  height: auto;
+  margin: 10px auto; 
+  border-radius: 50%;
+}
+
+.sidebar-header {
+    padding: 0 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.sidebar-nav {
+    list-style: none;
+    margin-bottom: auto; 
+}
+
+.sidebar-nav li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    color: #f6fcdf;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: rgba(246, 252, 223, 0.1);
+}
+
+.sidebar-nav a i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+
+                                /* Logout link styling */
+.logout-li {
+    list-style: none; 
+    margin-top: auto; 
+}
+
+.logout-li a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    color: #f6fcdf;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease; 
+    border: 1px solid #f6fcdf; 
+    border-radius: 5px; 
+    margin: 0 1.5rem; 
+}
+
+.logout-li a:hover {
+    background: rgba(246, 252, 223, 0.1);
+    border-color: #859f3d; 
+}
+
+.logout-li a i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f6fcdf;
+    color: #1a1a19;
+}
+
+.btn-notif {                                /*button to notify tenant*/
+    background: #31511e;
+    color: #f6fcdf;
+    text-decoration: none;
+    padding: 0.25rem 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.top-bar {
+    background: #f6fcdf;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-bar h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a19;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logout-btn {
+    background: #31511e;
+    color: #f6fcdf;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-top: auto;
+}
+
+.logout-btn:hover {
+    background: #1a1a19;
+}
+
+.content {
+    flex: 1;
+    padding: 2rem;
+}
+
+                                /* Dashboard Cards */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background: #f6fcdf;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary-card h3 {
+    color: #31511e;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.summary-card .number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a19;
+}
+
+                                    /* Tables */
+.table-container {
+    background: #f6fcdf;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.table-header {
+    background: #31511e;
+    color: #f6fcdf;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.btn-add {
+    background: #1a1a19;
+    color: #f6fcdf;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f6fcdf;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #859f3d;
+    color: #1a1a19;
+}
+
+th {
+    background: #859f3d;
+    font-weight: 600;
+    color: #f6fcdf;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-paid {
+    background: #859f3d;
+    color: #1a1a19;
+}
+
+.status-unpaid {
+    background: #1a1a19;
+    color: #f6fcdf;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-edit, .btn-delete, .btn-mark-paid, .btn-notify {
+    padding: 0.25rem 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+ .btn-notify{                           /*button to remind tenants dues*/
+    background: #31511e;
+    color: #f6fcdf;
+ }
+
+.btn-edit {
+    background: #31511e;
+    color: #f6fcdf;
+}
+
+.btn-delete {
+    background: #1a1a19;
+    color: #f6fcdf;
+}
+
+                                    /* Tenant Dashboard */
+.tenant-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    background: #f6fcdf;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.rental-info, .payment-info {
+    flex: 1;
+    background: #f6fcdf;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #859f3d;
+    height: 150px;
+}
+
+.tenant-dashboard {
+    background: #f6fcdf;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.rental-info h3 {
+    color: #31511e;
+    margin-bottom: 1rem;
+}
+
+.rental-info p {
+    margin-bottom: 0.5rem;
+}
+
+.payment-info h3 {
+     color: #31511e;
+    margin-bottom: 1rem;
+}
+
+.payment-info p {
+    margin-bottom: 0.5rem;
+}
+
+.table-history {
+    background: #f6fcdf;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+
+.table-header {
+    background: #31511e;
+    color: #f6fcdf;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-header h2 {
+    font-size: 1.00rem;
+    font-weight: 600;
+}
+
+                                        /* Forms */
+
+.maintainance {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6fcdf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.maintainance-card {
+   background: #f6fcdf;
+   width: 400px;
+   padding: 25px;
+   border-radius: 12px;
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+   text-align: center;
+}
+
+.maintainance-header h2 {
+    background: #31511e;
+    color: #f6fcdf;
+    padding: 12px;
+    margin: -25px -25px 20px -25px;
+    border-radius: 12px 12px 0 0;
+    font-size: 20px;
+}
+
+.maintainance-form {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #1a1a19;
+}
+
+.maintainance input, .maintainance textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #859f3d;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #f6fcdf;
+    color: #1a1a19;
+}
+.maintainance input:focus {
+    border-color: #31511e;
+    box-shadow: 0 0 4px rgba(49,81,30,0.4);
+}
+.maintainance button {
+    width: 100%;
+    padding: 12px;
+    background: #31511e;
+    border: none;
+    border-radius: 6px;
+    color: #f6fcdf;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.maintainance button:hover {
+    background: #1a1a19;
+}
+
+.rules-container {
+  margin: 20px;
+  padding: 20px;
+  background: #f6fcdf;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+  color: #1a1a19;
+  height: 640px;
+  overflow-y: scroll;
+}
+
+.rules-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #31511e;
+  border-bottom: 2px solid #31511e;
+  padding-bottom: 10px;
+}
+
+.rule {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-left: 5px solid #31511e;
+  background: #f6fcdf;
+  border-radius: 8px;
+  
+}
+
+.rule h2 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #1a1a19;
+}
+
+.rule p {
+  margin: 0;
+  font-size: 15px;
+  color: #1a1a19;
+  line-height: 1.5;
+}
+
+.regulations-container {
+  margin: 20px;
+  padding: 20px;
+  background: #f6fcdf;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+  color: #1a1a19;
+}
+
+.regulations-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #31511e;
+  border-bottom: 2px solid #31511e;
+  padding-bottom: 10px;
+}
+
+.regulations {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-left: 5px solid #31511e;
+  background: #f6fcdf;
+  border-radius: 8px;
+}
+
+.regulations h2 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #1a1a19;
+}
+
+.regulations p {
+  margin: 0;
+  font-size: 15px;
+  color: #1a1a19;
+  line-height: 1.5;
+}
+
+.profile {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6fcdf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.profile-card {
+   background: #f6fcdf;
+   width: 400px;
+   padding: 25px;
+   border-radius: 12px;
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+   text-align: center;
+}
+
+.profile-header h2 {
+    background: #31511e;
+    color: #f6fcdf;
+    padding: 12px;
+    margin: -25px -25px 20px -25px;
+    border-radius: 12px 12px 0 0;
+    font-size: 20px;
+}
+
+.profile-form {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #1a1a19;
+}
+
+.profile input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #859f3d;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #f6fcdf;
+    color: #1a1a19;
+}
+.profile input:focus {
+    border-color: #31511e;
+    box-shadow: 0 0 4px rgba(49,81,30,0.4);
+}
+.profile button {
+    width: 100%;
+    padding: 12px;
+    background: #31511e;
+    border: none;
+    border-radius: 6px;
+    color: #f6fcdf;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.profile button:hover {
+    background: #1a1a19;
+}
+
+                                        /* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        order: 2;
+    }
+    
+    .main-content {
+        order: 1;
+    }
+    
+    .sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+    }
+    
+    .sidebar-nav li {
+        flex-shrink: 0;
+    }
+    
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    table {
+        min-width: 600px;
+    }
+}
+
+                                /* Hide/show forms based on radio selection */
+.login-form {
+    display: none;
+}
+
+#admin-login:checked ~ #admin-form,
+#tenant-login:checked ~ #tenant-form {
+    display: block;
+}

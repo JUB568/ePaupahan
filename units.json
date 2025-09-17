@@ -1,0 +1,30 @@
+[
+  {
+    "unit_no": "101",
+    "type": "Studio",
+    "monthly_rent": 5000,
+    "availability": "Occupied",
+    "current_tenant": null
+  },
+  {
+    "unit_no": "102",
+    "type": "1-Bedroom",
+    "monthly_rent": 7500,
+    "availability": "Available",
+    "current_tenant": null
+  },
+  {
+    "unit_no": "103",
+    "type": "2-Bedroom",
+    "monthly_rent": 10000,
+    "availability": "Occupied",
+    "current_tenant": null
+  },
+  {
+    "unit_no": "104",
+    "type": "Studio",
+    "monthly_rent": 4800,
+    "availability": "Available",
+    "current_tenant": null
+  }
+]
