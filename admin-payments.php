@@ -55,7 +55,6 @@
                                 <td>Dec 5, 2023</td>
                                 <td><span class="status-badge status-paid">Paid</span></td>
                                 <td class="action-buttons">
-                                    <a href="#" class="btn-edit">✏️ Edit</a>
                                     <a href="#" class="btn-notify">🛎️ Remind</a>
                                 </td>
                             </tr>
@@ -66,7 +65,6 @@
                                 <td>Dec 5, 2023</td>
                                 <td><span class="status-badge status-paid">Paid</span></td>
                                 <td class="action-buttons">
-                                    <a href="#" class="btn-edit">✏️ Edit</a>
                                     <a href="#" class="btn-notify">🛎️ Remind</a>
                                 </td>
                             </tr>
@@ -77,7 +75,6 @@
                                 <td>Dec 10, 2023</td>
                                 <td><span class="status-badge status-unpaid">Unpaid</span></td>
                                 <td class="action-buttons">
-                                    <a href="#" class="btn-edit">✏️ Edit</a>
                                     <a href="#" class="btn-notify">🛎️ Remind</a>
                                 </td>
                             </tr>
@@ -88,7 +85,6 @@
                                 <td>Dec 5, 2023</td>
                                 <td><span class="status-badge status-paid">Paid</span></td>
                                 <td class="action-buttons">
-                                    <a href="#" class="btn-edit">✏️ Edit</a>
                                     <a href="#" class="btn-notify">🛎️ Remind</a>
                                 </td>
                             </tr>
@@ -99,7 +95,6 @@
                                 <td>Dec 15, 2023</td>
                                 <td><span class="status-badge status-unpaid">Unpaid</span></td>
                                 <td class="action-buttons">
-                                    <a href="#" class="btn-edit">✏️ Edit</a>
                                     <a href="#" class="btn-notify">🛎️ Remind</a>
                                 </td>
                             </tr>
