@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["
 
 // Handle edit
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["action"] === "edit") {
-    editUnit($_POST["id"], $_POST["unit_no"], $_POST["type"], $_POST["rent"], $_POST["availability"]);
+    editUnit($_POST["id"], $_POST["unit_no"], $_POST["type"], $_POST["rent"], $_POST["availability"], $_POST["tenant_id"]);
     header("Location: admin-units.php");
     exit;
 }
@@ -33,6 +33,32 @@ $units = loadUnits();
     <title>Units Management - ePaupahan</title>
     <link rel="stylesheet" href="new.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Simple Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            width: 400px;
+            border-radius: 10px;
+        }
+        .close {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard">
@@ -96,15 +122,11 @@ $units = loadUnits();
                                     </td>
                                     <td><?= htmlspecialchars($unit["tenant"]) ?></td>
                                     <td class="action-buttons">
-                                        <form method="POST" style="display:inline;">
-                                            <input type="hidden" name="action" value="edit">
-                                            <input type="hidden" name="id" value="<?= $unit["id"] ?>">
-                                            <input type="hidden" name="unit_no" value="<?= $unit["unit_no"] ?>">
-                                            <input type="hidden" name="type" value="<?= $unit["type"] ?>">
-                                            <input type="hidden" name="rent" value="<?= $unit["rent"] ?>">
-                                            <input type="hidden" name="availability" value="<?= $unit["availability"] ?>">
-                                            <button type="submit" class="btn-edit">✏️ Edit</button>
-                                        </form>
+                                        <button type="button" 
+                                                class="btn-edit"
+                                                onclick="openEditModal(<?= $unit['id'] ?>, '<?= $unit['unit_no'] ?>', '<?= $unit['type'] ?>', <?= $unit['rent'] ?>, '<?= $unit['availability'] ?>')">
+                                            ✏️ Edit
+                                        </button>
                                         <a href="?delete=<?= $unit['id'] ?>" class="btn-delete" onclick="return confirm('Delete this unit?')">🗑️ Delete</a>
                                     </td>
                                 </tr>
@@ -115,5 +137,60 @@ $units = loadUnits();
             </div>
         </main>
     </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Unit</h2>
+            <form method="POST">
+                <input type="hidden" name="action" value="edit">
+                <input type="hidden" name="id" id="edit_id">
+
+                <label>Unit No.</label>
+                <input type="text" name="unit_no" id="edit_unit_no" required><br><br>
+
+                <label>Type</label>
+                <input type="text" name="type" id="edit_type" required><br><br>
+
+                <label>Monthly Rent</label>
+                <input type="number" step="0.01" name="rent" id="edit_rent" required><br><br>
+
+                <label>Availability</label>
+                <select name="availability" id="edit_availability">
+                    <option value="Available">Available</option>
+                    <option value="Occupied">Occupied</option>
+                </select><br><br>
+
+                <label>Tenant (ID)</label>
+                <input type="number" name="tenant_id" id="edit_tenant_id" placeholder="Tenant ID"><br><br>
+
+                <button type="submit">💾 Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openEditModal(id, unit_no, type, rent, availability) {
+            document.getElementById("edit_id").value = id;
+            document.getElementById("edit_unit_no").value = unit_no;
+            document.getElementById("edit_type").value = type;
+            document.getElementById("edit_rent").value = rent;
+            document.getElementById("edit_availability").value = availability;
+            document.getElementById("editModal").style.display = "block";
+        }
+
+        function closeEditModal() {
+            document.getElementById("editModal").style.display = "none";
+        }
+
+        // Close modal if user clicks outside
+        window.onclick = function(event) {
+            let modal = document.getElementById("editModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>

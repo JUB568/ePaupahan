@@ -38,11 +38,24 @@ function addUnit($unit_no, $type, $monthly_rent) {
     $stmt->close();
 }
 
-// Edit unit
-function editUnit($id, $unit_no, $type, $monthly_rent, $availability) {
+// Edit unit (with tenant support)
+function editUnit($id, $unit_no, $type, $monthly_rent, $availability, $tenant_id = null) {
     global $conn;
-    $stmt = $conn->prepare("UPDATE units SET unit_no = ?, type = ?, monthly_rent = ?, availability = ? WHERE unit_id = ?");
-    $stmt->bind_param("ssdsi", $unit_no, $type, $monthly_rent, $availability, $id);
+
+    if (empty($tenant_id)) {
+        // If no tenant assigned, set current_tenant = NULL
+        $stmt = $conn->prepare("UPDATE units 
+                                SET unit_no = ?, type = ?, monthly_rent = ?, availability = ?, current_tenant = NULL 
+                                WHERE unit_id = ?");
+        $stmt->bind_param("ssdsi", $unit_no, $type, $monthly_rent, $availability, $id);
+    } else {
+        // Update with assigned tenant
+        $stmt = $conn->prepare("UPDATE units 
+                                SET unit_no = ?, type = ?, monthly_rent = ?, availability = ?, current_tenant = ? 
+                                WHERE unit_id = ?");
+        $stmt->bind_param("ssdsii", $unit_no, $type, $monthly_rent, $availability, $tenant_id, $id);
+    }
+
     $stmt->execute();
     $stmt->close();
 }
