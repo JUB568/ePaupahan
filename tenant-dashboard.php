@@ -16,14 +16,14 @@
                 <h5>Tenant Portal</h5>
             </div>
             <ul class="sidebar-nav">
-                <li><a href="tenant-dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="tenant-payments.html"><i class="fas fa-credit-card"></i> Payment History</a></li>
-                <li><a href="tenant-requestmaintainance.html"><i class="fas fa-tools"></i> Request Maintenance</a></li>
-                <li><a href="tenant-rulespolicies.html" ><i class="fas fa-gavel"></i> Rules and Policies</a></li>
-                <li><a href="tenant-profile.html" ><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="tenant-dashboard.php" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="tenant-payments.php"><i class="fas fa-credit-card"></i> Payment History</a></li>
+                <li><a href="tenant-requestmaintainance.php"><i class="fas fa-tools"></i> Request Maintenance</a></li>
+                <li><a href="tenant-rulespolicies.php" ><i class="fas fa-gavel"></i> Rules and Policies</a></li>
+                <li><a href="tenant-profile.php" ><i class="fas fa-user"></i> Profile</a></li>
                 
             </ul>
-            <li class="logout-li"><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            <li class="logout-li"><a href="login.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </nav>
 
         <main class="main-content">
