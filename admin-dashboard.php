@@ -1,5 +1,6 @@
 <?php
 include "functions.php";
+include "conn.php"; // make sure conn.php has $conn defined
 
 // Load tenants
 $tenants = loadTenants();
@@ -9,8 +10,24 @@ $totalTenants = countTenants();
 $totalUnits = countUnits();
 $occupiedUnits = countOccupiedUnits();
 $availableUnits = countAvailableUnits();
-?>
 
+// Get pending maintenance requests
+$sql = "SELECT mr.request_id, mr.request_date, mr.description, t.full_name AS tenant, u.unit_no 
+        FROM maintenance_requests mr
+        JOIN tenants t ON mr.tenant_id = t.tenant_id
+        JOIN units u ON mr.unit_id = u.unit_id
+        WHERE mr.status = 'Pending'
+        ORDER BY mr.request_date DESC";
+$result = $conn->query($sql);
+
+$requests = [];
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $requests[] = $row;
+    }
+}
+$pendingCount = count($requests);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +36,73 @@ $availableUnits = countAvailableUnits();
     <title>Admin Dashboard - ePaupahan</title>
     <link rel="stylesheet" href="new.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Notification ping */
+        .notif-icon {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .notif-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: red;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 50%;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 600px;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h2 {
+            margin: 0;
+        }
+        .close-btn {
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            background: none;
+        }
+        .request-card {
+            border: 1px solid #ccc;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+        .request-card h4 {
+            margin: 0 0 6px 0;
+        }
+        .request-card p {
+            margin: 4px 0;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard">
@@ -42,7 +126,12 @@ $availableUnits = countAvailableUnits();
             <header class="top-bar">
                 <h1>Dashboard</h1>
                 <span class="action-buttons">
-                    <a href="admin-notif.html" class="btn-notif"><i class="fas fa-bell"></i> Notification</a>
+                    <span class="btn-notif notif-icon" id="notifBtn">
+                        <i class="fas fa-bell"></i> Notification
+                        <?php if ($pendingCount > 0): ?>
+                            <span class="notif-badge"><?= $pendingCount ?></span>
+                        <?php endif; ?>
+                    </span>
                 </span>
             </header>
 
@@ -65,7 +154,6 @@ $availableUnits = countAvailableUnits();
                         <div class="number"><?= $totalTenants ?></div>
                     </div>
                 </div>
-
 
                 <div class="table-container">
                     <div class="table-header">
@@ -101,5 +189,46 @@ $availableUnits = countAvailableUnits();
             </div>
         </main>
     </div>
+
+    <!-- Modal -->
+    <div id="notifModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Pending Maintenance Requests</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <?php if ($pendingCount > 0): ?>
+                <?php foreach ($requests as $req): ?>
+                    <div class="request-card">
+                        <h4>Tenant: <?= htmlspecialchars($req['tenant']) ?> (Unit <?= htmlspecialchars($req['unit_no']) ?>)</h4>
+                        <p><strong>Date:</strong> <?= htmlspecialchars($req['request_date']) ?></p>
+                        <p><strong>Description:</strong> <?= nl2br(htmlspecialchars($req['description'])) ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No pending requests 🎉</p>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <script>
+        const notifBtn = document.getElementById('notifBtn');
+        const modal = document.getElementById('notifModal');
+        const closeBtn = document.getElementById('closeModal');
+
+        notifBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>

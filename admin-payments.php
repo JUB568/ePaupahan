@@ -1,3 +1,15 @@
+<?php
+include "conn.php"; // database connection
+
+// Fetch all payments with tenant + unit info
+$sql = "SELECT tr.transaction_id, t.full_name, u.unit_no, tr.amount_due, tr.due_date, tr.status
+        FROM transactions tr
+        JOIN tenants t ON tr.tenant_id = t.tenant_id
+        JOIN units u ON tr.unit_id = u.unit_id
+        ORDER BY tr.due_date ASC";
+
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +28,7 @@
                 <h5>Admin Portal</h5>
             </div>
             <ul class="sidebar-nav">
-                <li><a href="admin-dashboard.php" ><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="admin-dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li><a href="admin-tenants.php"><i class="fas fa-users"></i> Tenants</a></li>
                 <li><a href="admin-units.php"><i class="fas fa-home"></i> Units</a></li>
                 <li><a href="admin-payments.php" class="active"><i class="fas fa-credit-card"></i> Payments</a></li>
@@ -34,7 +46,7 @@
                 <div class="table-container">
                     <div class="table-header">
                         <h2>All Payments</h2>
-                        <a href="#" class="btn-add">➕ Add Payment</a>
+                        <a href="add-payment.php" class="btn-add">➕ Add Payment</a>
                     </div>
                     <table>
                         <thead>
@@ -48,56 +60,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Juan Dela Cruz</td>
-                                <td>Unit 2A</td>
-                                <td>₱8,000</td>
-                                <td>Dec 5, 2023</td>
-                                <td><span class="status-badge status-paid">Paid</span></td>
-                                <td class="action-buttons">
-                                    <a href="#" class="btn-notify">🛎️ Remind</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Maria Santos</td>
-                                <td>Unit 3B</td>
-                                <td>₱10,000</td>
-                                <td>Dec 5, 2023</td>
-                                <td><span class="status-badge status-paid">Paid</span></td>
-                                <td class="action-buttons">
-                                    <a href="#" class="btn-notify">🛎️ Remind</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Pedro Reyes</td>
-                                <td>Unit 1C</td>
-                                <td>₱7,500</td>
-                                <td>Dec 10, 2023</td>
-                                <td><span class="status-badge status-unpaid">Unpaid</span></td>
-                                <td class="action-buttons">
-                                    <a href="#" class="btn-notify">🛎️ Remind</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ana Rodriguez</td>
-                                <td>Unit 4A</td>
-                                <td>₱9,000</td>
-                                <td>Dec 5, 2023</td>
-                                <td><span class="status-badge status-paid">Paid</span></td>
-                                <td class="action-buttons">
-                                    <a href="#" class="btn-notify">🛎️ Remind</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Carlos Mendoza</td>
-                                <td>Unit 5B</td>
-                                <td>₱12,500</td>
-                                <td>Dec 15, 2023</td>
-                                <td><span class="status-badge status-unpaid">Unpaid</span></td>
-                                <td class="action-buttons">
-                                    <a href="#" class="btn-notify">🛎️ Remind</a>
-                                </td>
-                            </tr>
+                            <?php if ($result && $result->num_rows > 0): ?>
+                                <?php while ($row = $result->fetch_assoc()): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($row["full_name"]) ?></td>
+                                        <td><?= htmlspecialchars($row["unit_no"]) ?></td>
+                                        <td>₱<?= number_format($row["amount_due"], 2) ?></td>
+                                        <td><?= date("M d, Y", strtotime($row["due_date"])) ?></td>
+                                        <td>
+                                            <?php if ($row["status"] === "Paid"): ?>
+                                                <span class="status-badge status-paid">Paid</span>
+                                            <?php elseif ($row["status"] === "Overdue"): ?>
+                                                <span class="status-badge status-unpaid">Overdue</span>
+                                            <?php else: ?>
+                                                <span class="status-badge status-unpaid">Pending</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="action-buttons">
+                                            <a href="notify-tenant.php?id=<?= $row['transaction_id'] ?>" class="btn-notify">🛎️ Remind</a>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="6">No payment records found.</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
